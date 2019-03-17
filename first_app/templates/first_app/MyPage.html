@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Page title
+{% endblock %}
+
+{% block content %}
+    {% formfields %}
+    {% next_button %}
+    <div class="mycontainer"></div>
+{% endblock %}
+{% block scripts %}
+    <script>
+        var coef = {{ Constants.coef }};
+        $(function () {
+            $('#id_t').on('input', function () {
+                var curval = ($(this).val());
+                $('.mycontainer').html(curval / coef);
+            })
+        })
+    </script>
+{% endblock %}
