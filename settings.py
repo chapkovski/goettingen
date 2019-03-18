@@ -13,10 +13,10 @@ SESSION_CONFIG_DEFAULTS = {
 
 SESSION_CONFIGS = [
     {
-       'name': 'questionnaire',
-       'display_name': "Questionnaire",
-       'num_demo_participants': 1,
-       'app_sequence': ['questionnaire'],
+        'name': 'questionnaire',
+        'display_name': "Questionnaire",
+        'num_demo_participants': 1,
+        'app_sequence': ['questionnaire'],
     },
     {
         'name': 'my_first_app',
@@ -24,8 +24,16 @@ SESSION_CONFIGS = [
         'num_demo_participants': 1,
         'app_sequence': ['first_app'],
     },
+    {
+        'name': 'pgg_baseline',
+        'display_name': "Public Good Game - baseline",
+        'num_demo_participants': 3,
+        'app_sequence': ['pgg'],
+        'hetero_endowment': False,
+        'gender_shown': False,
+        'punishment': False
+    },
 ]
-
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
