@@ -2,7 +2,7 @@ from . import models
 from ._builtin import Page, WaitPage
 from otree.api import Currency as c, currency_range
 from .models import Constants, Player
-from .charts import preparing_charts
+
 
 
 class Intro(Page):
@@ -58,10 +58,11 @@ class AfterPunishmentWP(WaitPage):
 
 
 class Results(Page):
-    def vars_for_template(self):
-        return {'highcharts_series': preparing_charts(me=self.player),
-                'total_earnings': Constants.efficiency_factor * self.group.total_contribution,
-                }
+    pass
+    # def vars_for_template(self):
+    #     return {'highcharts': preparing_charts(me=self.player),
+    #             'total_earnings': Constants.efficiency_factor * self.group.total_contribution,
+    #             }
 
 
 page_sequence = [

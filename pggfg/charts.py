@@ -1,49 +1,8 @@
-from . import models
 from otree.common import safe_json
 import json
 
 
-def preparing_charts(me):
-    num_rounds = models.Constants.num_rounds
-    series = []
-    empty_rounds = range(me.subsession.round_number + 1, num_rounds + 1)
-    making_add = list(zip(list(empty_rounds), [''] * len(empty_rounds)))
 
-
-
-    mygroupaverage = [[p.round_number, round(p.group.average_contribution), ] for p in me.in_all_rounds()]
-    mygroupcontribs = [[r.round_number, (a.contribution or 0)] for r in me.group.in_all_rounds() for a in
-                       r.get_players()]
-    personcontribs = [[p.round_number, p.contribution, ] for p in me.in_all_rounds()]
-    mygroupcontribs += making_add
-    personcontribs += making_add
-    series.append({
-        'name': 'Your group average',
-        'type': 'line',
-        'data': mygroupaverage})
-
-    series.append({
-        'name': 'Your group members',
-        'type': 'scatter',
-        'data': mygroupcontribs,
-        'marker': {
-            'fillColor': '#FFFFFF',
-            'lineWidth': 1,
-            'lineColor': 'red',
-            'radius': 7,
-            'symbol': 'circle'},
-    })
-
-    series.append({
-        'name': 'Your contributions',
-        'type': 'line',
-        'data': personcontribs,
-        'marker': {
-            'radius': 5,
-        }})
-
-    highcharts_series = safe_json(series)
-    return highcharts_series
 
 def chart_for_admin(me):
     if final:

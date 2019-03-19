@@ -5,7 +5,7 @@
 
 
 {% block scripts %}
-    <script src="//code.highcharts.com/highcharts.js"></script>
+    <script src="{% static 'js/highcharts.js' %}"></script>
 
     <script>
         $(function () {
@@ -24,7 +24,7 @@
 
                     title: {text: 'Round'},
                     allowDecimals: false,
-                    categories: {{ cats|json }},
+                    categories: {{ player.charts.rounds|json }},
                 },
                 yAxis: {
                     title: {
@@ -43,7 +43,7 @@
                     verticalAlign: 'middle',
                     borderWidth: 0
                 },
-                series: {{ highcharts_series }}
+                series: {{ player.charts.series|json }}
             });
         });
     </script>

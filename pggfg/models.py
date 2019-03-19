@@ -3,7 +3,6 @@ from otree.api import (
     Currency as c, currency_range
 )
 import random
-from .charts import preparing_charts, chart_for_admin
 
 author = "Philip Chapkovski, chapkovski@gmail.com"
 
@@ -18,7 +17,7 @@ class Constants(BaseConstants):
     name_in_url = 'pggfg'
     players_per_group = 3
     num_others_per_group = players_per_group - 1
-    num_rounds = 2
+    num_rounds = 10
     instructions_template = 'pggfg/Instructions.html'
     endowment = 20
     lb = c(10)
@@ -110,3 +109,23 @@ class Player(BasePlayer):
                               - self.contribution,
                               + self.group.individual_share,
                               ])
+
+    def charts(self):
+        series = []
+        group_average = [round(p.group.average_contribution) if p.group.average_contribution else '' for p
+                         in self.in_rounds(1, Constants.num_rounds)]
+        my_contribs = [p.contribution if p.contribution else '' for p in self.in_rounds(1, Constants.num_rounds)]
+        series.append({
+            'name': 'Your group average',
+            'type': 'line',
+            'data': group_average})
+
+        series.append({
+            'name': 'Your contributions',
+            'type': 'line',
+            'data': my_contribs,
+            'marker': {
+                'radius': 10,
+            }})
+        rounds = list(range(1, Constants.num_rounds + 1))
+        return {'rounds': rounds, 'series': series}
