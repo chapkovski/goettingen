@@ -10,9 +10,9 @@ class Input(Page):
 
 class ResultsWaitPage(WaitPage):
     def is_displayed(self):
-        # if this is interpersonal treatment (in other words 'individual' is False in settings then
+        # if this is interpersonal treatment (in other words 'duo' is False in settings then
         # they should wait for the partner. It is not necessary if we are in individual treatment
-        return not self.session.config.get('individual')
+        return self.subsession.duo
 
     def after_all_players_arrive(self):
         pass

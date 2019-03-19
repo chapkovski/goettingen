@@ -48,7 +48,10 @@ class Constants(BaseConstants):
 
 
 class Subsession(BaseSubsession):
-    pass
+    duo = models.BooleanField()
+    def creating_session(self):
+        self.duo = self.session.config.get('duo', False)
+
 
 
 class Group(BaseGroup):
