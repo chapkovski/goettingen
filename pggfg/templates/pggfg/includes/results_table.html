@@ -37,18 +37,18 @@
             <td> +</td>
             <td><b>{{ group.individual_share }}</b></td>
         </tr>
-
-        <tr>
-            <td>Punishment you sent:</td>
-            <td> -</td>
-            <td><b>{{ player.punishment_sent }}</b></td>
-        </tr>
-        <tr>
-            <td>Punishment you received:</td>
-            <td> -</td>
-            <td><b>{{ player.punishment_received }}</b></td>
-        </tr>
-
+        {% if subsession.punishment %}
+            <tr>
+                <td>Punishment you sent:</td>
+                <td> -</td>
+                <td><b>{{ player.punishment_sent }}</b></td>
+            </tr>
+            <tr>
+                <td>Punishment you received:</td>
+                <td> -</td>
+                <td><b>{{ player.punishment_received }}</b></td>
+            </tr>
+        {% endif %}
         <tr>
             <td>Your payoff in this round:</td>
             <td> =</td>

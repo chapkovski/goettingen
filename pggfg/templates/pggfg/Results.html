@@ -6,7 +6,9 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'pggfg/includes/resultstable.html' %}
-    {% include 'pggfg/includes/resultschart.html' %}
+    {% include 'pggfg/includes/results_table.html' %}
+    {% include 'pggfg/includes/results_chart.html' %}
+    {% include 'pggfg/includes/endowment_gender_block.html' with results=True %}
+    <div class="my-3"></div>
     {% next_button %}
 {% endblock %}

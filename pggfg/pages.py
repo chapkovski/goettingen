@@ -4,6 +4,7 @@ from otree.api import Currency as c, currency_range
 from .models import Constants, Player
 from .charts import preparing_charts
 
+
 class Intro(Page):
     template_name = 'pggfg/Introduction.html'
 
@@ -14,6 +15,13 @@ class Intro(Page):
 class Contribute(Page):
     form_model = 'player'
     form_fields = ['contribution']
+
+    def vars_for_template(self):
+        label = f'How much will you contribute to the project (from 0 to {self.player.endowment})?'
+        return {'label': label}
+
+    def contribution_max(self):
+        return self.player.endowment
 
 
 class AfterContribWP(WaitPage):

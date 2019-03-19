@@ -1,12 +1,12 @@
 {% load staticfiles otree_tags %}
 
 
-<h5 class="my-3">For example, if you contribute:</h5>
+<h6 class="my-3">For example, if each of you get {{ Constants.endowment|c }} and you contribute:</h6>
 
 <div id="slider_you" class='sliders'>
     <div id="custom-handle" class="ui-slider-handle"></div>
 </div>
-<h5 class="my-3">... and average contribution of other {{ Constants.num_others_per_group }} participants:</h5>
+<h6 class="my-3">... and average contribution of other {{ Constants.num_others_per_group }} participants:</h6>
 <div id="slider_others" class='sliders'>
     <div id="custom-handle" class="ui-slider-handle"></div>
 </div>
@@ -16,15 +16,15 @@
         <td>
             The others will earn an average of:
         </td>
-        <td id='others_share'></td>
+        <th id='others_share'></th>
     </tr>
     <tr>
         <td>You will earn:</td>
-        <td id='yourearnings'></td>
+        <th id='yourearnings'></th>
     </tr>
 </table>
 
-<hr>
+
 
 
 {% block scripts %}
@@ -58,8 +58,8 @@
             var total = val_others * (group_size - 1) + val_you;
             var indshare = total * efficiency_factor / group_size;
             var others_payoff = endowment - val_others + indshare;
-            $('td#others_share').text(Math.round(others_payoff));
-            $('td#yourearnings').text(Math.round(endowment - val_you + indshare));
+            $('th#others_share').text(Math.round(others_payoff));
+            $('th#yourearnings').text(Math.round(endowment - val_you + indshare));
 
         };
         $(".sliders").slider(

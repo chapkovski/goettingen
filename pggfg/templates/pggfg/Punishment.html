@@ -7,12 +7,12 @@
 {% endblock %}
 
 {% block content %}
+
     <div class="card">
         <div class="card-header">
             <b> Instructions for stage 2</b>
         </div>
         <div class="card-body">
-
             In this stage you can see the decisions and other participants in the your group,
             You can transfer up to <strong>{{ player.punishment_endowment }} points </strong> from your endowment to
             decrease the
@@ -31,6 +31,12 @@
         <thead>
         <tr>
             <th>Player:</th>
+            {% if subsession.hetero_endowment %}
+                <th>Endowment</th>
+            {% endif %}
+            {% if subsession.gender_shown %}
+                <th>Gender</th>
+            {% endif %}
             <th>Contibution</th>
             <th>Deduction tokens</th>
             <th>Effect on their payoff:</th>
@@ -40,6 +46,12 @@
         {% for i,j in data %}
             <tr>
                 <td>Player {{ forloop.counter }}</td>
+                {% if subsession.hetero_endowment %}
+                    <td>{{ i.endowment }}</td>
+                {% endif %}
+                {% if subsession.gender_shown %}
+                    <td>{{i.participant.vars.gender}}</td>
+                {% endif %}
                 <td>{{ i.contribution }}</td>
                 <td>{% formfield j label='' %}</td>
                 <td id="{{ j.id_for_label }}"></td>
