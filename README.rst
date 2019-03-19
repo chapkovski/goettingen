@@ -1,4 +1,4 @@
-Goettingen (20-22 March 2019) oTree workshop
+Goettingen oTree workshop (March 20-22, 2019)
 ================================================
 
 1. First app in oTre
