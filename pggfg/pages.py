@@ -16,15 +16,25 @@ class Intro(Page):
 
 
 class Contribute(Page):
+    timeout_seconds = 60
+
     form_model = 'player'
     form_fields = ['contribution']
 
     def vars_for_template(self):
         label = f'How much will you contribute to the project (from 0 to {self.player.endowment})?'
-        return {'label': label}
+        x = self.session.config.get('timeout_contribution', 0)
+        timer_text = f'Time left to complete this page (if you do not decide, your contribution will be {c(x)}):'
+        return {'label': label,
+                'timer_text': timer_text
+                }
 
     def contribution_max(self):
         return self.player.endowment
+
+    def before_next_page(self):
+        if self.timeout_happened:
+            self.player.contribution = self.session.config.get('timeout_contribution', 0)
 
 
 class AfterContribWP(WaitPage):

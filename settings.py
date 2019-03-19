@@ -45,7 +45,8 @@ SESSION_CONFIGS = [
         'app_sequence': ['pggfg'],
         'hetero_endowment': False,
         'gender_shown': False,
-        'punishment': False
+        'punishment': False,
+        'timeout_contribution': 0
     },
     {
         'name': 'pgg_hetero',
@@ -91,7 +92,7 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
 
-ROOMS = [{'name':'goettingen', 'display_name': 'Room for Goettingen Workshop'}]
+ROOMS = [{'name': 'goettingen', 'display_name': 'Room for Goettingen Workshop'}]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable
