@@ -3,6 +3,7 @@ from otree.api import (
     Currency as c, currency_range
 )
 import random
+from .charts import preparing_charts, chart_for_admin
 
 author = "Philip Chapkovski, chapkovski@gmail.com"
 
@@ -17,7 +18,7 @@ class Constants(BaseConstants):
     name_in_url = 'pggfg'
     players_per_group = 3
     num_others_per_group = players_per_group - 1
-    num_rounds = 20
+    num_rounds = 2
     instructions_template = 'pggfg/Instructions.html'
     endowment = 20
     lb = c(10)
@@ -32,6 +33,11 @@ class Subsession(BaseSubsession):
     gender_shown = models.BooleanField(doc='whether the gender of other members of the groups will be shown')
     hetero_endowment = models.BooleanField(doc='whether the endowment is fixed or random')
     punishment = models.BooleanField(doc='whether game has a punihsment stage')
+
+    # def vars_for_admin_report(self):
+    #     contributions = [p.contribution for p in self.get_players()
+    #                      if p.contribution is not None]
+    #     return {'highcharts_series': chart_for_admin, }
 
     def set_config(self):
         for k in Constants.configurable_params:
@@ -61,9 +67,10 @@ class Group(BaseGroup):
         for p in self.get_players():
             p.set_pd_payoff()
 
-    def set_punishments(self):
+    def set_final_payoffs(self):
         for p in self.get_players():
             p.set_punishment()
+            p.set_payoff()
 
 
 class Player(BasePlayer):
@@ -90,9 +97,13 @@ class Player(BasePlayer):
 
     def set_punishment(self):
         puns_sent = [getattr(self, 'pun{}'.format(p.id_in_group)) for p in self.get_others_in_group()]
-        self.punishment_sent = int(sum(puns_sent))
         puns_received = [getattr(p, 'pun{}'.format(self.id_in_group)) for p in self.get_others_in_group()]
-        self.punishment_received = int(sum(puns_received)) * Constants.punishment_factor
+        if self.subsession.punishment:
+            self.punishment_sent = int(sum(puns_sent))
+            self.punishment_received = int(sum(puns_received)) * Constants.punishment_factor
+        else:
+            self.punishment_sent = 0
+            self.punishment_received = 0
 
     def set_pd_payoff(self):
         self.pd_payoff = sum([+ self.endowment,

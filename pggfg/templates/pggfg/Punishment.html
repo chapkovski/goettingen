@@ -45,7 +45,7 @@
 
         {% for i,j in data %}
             <tr>
-                <td>Player {{ forloop.counter }}</td>
+                <td>{{ forloop.counter }}</td>
                 {% if subsession.hetero_endowment %}
                     <td>{{ i.endowment }}</td>
                 {% endif %}

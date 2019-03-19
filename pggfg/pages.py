@@ -34,6 +34,9 @@ class AfterContribWP(WaitPage):
 class Punishment(Page):
     form_model = 'player'
 
+    def is_displayed(self):
+        return self.subsession.punishment
+
     def get_form_fields(self):
         return ['pun{}'.format(p.id_in_group) for p in self.player.get_others_in_group()]
 
@@ -51,9 +54,7 @@ class Punishment(Page):
 
 class AfterPunishmentWP(WaitPage):
     def after_all_players_arrive(self):
-        self.group.set_punishments()
-        for p in self.group.get_players():
-            p.set_payoff()
+        self.group.set_final_payoffs()
 
 
 class Results(Page):
@@ -63,7 +64,6 @@ class Results(Page):
                 }
 
 
-# from customwp.views import StartWP
 page_sequence = [
     Intro,
     Contribute,
