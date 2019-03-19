@@ -3,23 +3,14 @@ from ._builtin import Page, WaitPage
 from .models import Constants
 
 
-class MyPage(Page):
+class Q(Page):
     form_model = 'player'
-    form_fields = [q['name'] for q in Constants.qs]
+    form_fields = ['age', 'gender', 'income']
 
-
-class ResultsWaitPage(WaitPage):
-
-    def after_all_players_arrive(self):
-        pass
-
-
-class Results(Page):
-    pass
+    def before_next_page(self):
+        self.participant.vars['gender'] = self.player.get_gender_display()
 
 
 page_sequence = [
-    MyPage,
-    ResultsWaitPage,
-    Results
+    Q,
 ]

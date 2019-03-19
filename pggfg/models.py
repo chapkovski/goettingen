@@ -18,6 +18,7 @@ class Constants(BaseConstants):
     players_per_group = 3
     num_others_per_group = players_per_group - 1
     num_rounds = 10
+    rounds = list(range(1, num_rounds + 1))
     instructions_template = 'pggfg/Instructions.html'
     endowment = 20
     lb = c(10)
@@ -33,10 +34,14 @@ class Subsession(BaseSubsession):
     hetero_endowment = models.BooleanField(doc='whether the endowment is fixed or random')
     punishment = models.BooleanField(doc='whether game has a punihsment stage')
 
-    # def vars_for_admin_report(self):
-    #     contributions = [p.contribution for p in self.get_players()
-    #                      if p.contribution is not None]
-    #     return {'highcharts_series': chart_for_admin, }
+    def get_average(self):
+        all_contribs = [p.contribution or 0 for p in self.get_players()]
+        return sum(all_contribs) / len(all_contribs)
+
+    def vars_for_admin_report(self):
+        session_contribs = [s.get_average() for s in self.in_rounds(1, Constants.num_rounds)]
+        return {'series': session_contribs,
+                'rounds': Constants.rounds}
 
     def set_config(self):
         for k in Constants.configurable_params:
@@ -50,8 +55,6 @@ class Subsession(BaseSubsession):
                 p.endowment = random.randint(Constants.lb, Constants.ub)
             else:
                 p.endowment = Constants.endowment
-            #             TODO DEBUG
-            p.participant.vars['gender'] = random.choice(['Male', 'Female'])
 
 
 class Group(BaseGroup):
@@ -111,21 +114,10 @@ class Player(BasePlayer):
                               ])
 
     def charts(self):
-        series = []
         group_average = [round(p.group.average_contribution) if p.group.average_contribution else '' for p
                          in self.in_rounds(1, Constants.num_rounds)]
         my_contribs = [p.contribution if p.contribution else '' for p in self.in_rounds(1, Constants.num_rounds)]
-        series.append({
-            'name': 'Your group average',
-            'type': 'line',
-            'data': group_average})
 
-        series.append({
-            'name': 'Your contributions',
-            'type': 'line',
-            'data': my_contribs,
-            'marker': {
-                'radius': 10,
-            }})
-        rounds = list(range(1, Constants.num_rounds + 1))
-        return {'rounds': rounds, 'series': series}
+        return {'rounds': Constants.rounds,
+                'group_average': group_average,
+                'individual_contributions': my_contribs}

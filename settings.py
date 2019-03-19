@@ -60,7 +60,7 @@ SESSION_CONFIGS = [
         'name': 'pgg_gender',
         'display_name': "Public Good Game - Gender",
         'num_demo_participants': 3,
-        'app_sequence': ['pggfg'],
+        'app_sequence': ['questionnaire','pggfg'],
         'hetero_endowment': False,
         'gender_shown': True,
         'punishment': False

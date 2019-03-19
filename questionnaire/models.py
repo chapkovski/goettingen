@@ -15,9 +15,9 @@ class Constants(BaseConstants):
     name_in_url = 'questionnaire'
     players_per_group = None
     num_rounds = 1
-
-    with open('questionnaire/qs.csv') as f:
-        qs = list(csv.DictReader(f))
+    GENDER_CHOICES = [(0, 'Male'), (1, 'Female'), (2, 'Other')]
+    income_categories = ['<500', '500-1000', '1000-2000', '2000-4000', '4000-6000', 'More than 6000']
+    INCOME_CHOICES = [(i, j) for i, j in enumerate(income_categories)]
 
 
 class Subsession(BaseSubsession):
@@ -29,8 +29,8 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    pass
-
-
-for q in Constants.qs:
-    Player.add_to_class(q['name'], models.StringField(choices=q['choices'].split(';'), label=q['label']))
+    age = models.IntegerField(min=18, max=90, label='How old are you?')
+    gender = models.IntegerField(choices=Constants.GENDER_CHOICES, widget=widgets.RadioSelectHorizontal,
+                                 label='What is your gender?')
+    income = models.IntegerField(choices=Constants.INCOME_CHOICES, widget=widgets.RadioSelect,
+                                 label='What is your monthly income?')

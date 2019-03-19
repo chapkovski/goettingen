@@ -1,4 +1,4 @@
-{% load staticfiles otree_tags %}
+{% load otree %}
 
 <div id="highcharts-container"
      style="min-width: 310px; height: 400px; margin: 0 auto"></div>
@@ -38,14 +38,29 @@
                     pointFormat: 'Contribution: <b>{point.y}</b> '
                 },
                 legend: {
-                    layout: 'vertical',
-                    align: 'right',
-                    verticalAlign: 'middle',
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom',
                     borderWidth: 0
                 },
-                series: {{ player.charts.series|json }}
+                series: [
+                    {
+                        'name': 'Your group average',
+                        'type': 'line',
+                        'data': {{player.charts.group_average|json}},
+                        'marker': {
+                            'radius': 10,
+                        }
+                    },
+                    {
+                        'name': 'Your contributions',
+                        'type': 'line',
+                        'data': {{player.charts.individual_contributions|json}},
+                        'marker': {
+                            'radius': 10,
+                        }
+                    }]
             });
         });
     </script>
-
 {% endblock %}

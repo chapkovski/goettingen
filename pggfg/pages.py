@@ -4,6 +4,9 @@ from otree.api import Currency as c, currency_range
 from .models import Constants, Player
 
 
+class StartWP(WaitPage):
+    pass
+
 
 class Intro(Page):
     template_name = 'pggfg/Introduction.html'
@@ -59,13 +62,10 @@ class AfterPunishmentWP(WaitPage):
 
 class Results(Page):
     pass
-    # def vars_for_template(self):
-    #     return {'highcharts': preparing_charts(me=self.player),
-    #             'total_earnings': Constants.efficiency_factor * self.group.total_contribution,
-    #             }
 
 
 page_sequence = [
+    StartWP,
     Intro,
     Contribute,
     AfterContribWP,
