@@ -5,7 +5,7 @@
     Results
 {% endblock %}
 
-{% block content %}
+{% block inner_content %}
     {% if subsession.duo %}
         {% with other=player.get_other %}
             <div class="alert {{ other.get_bmi_info.alert }}">

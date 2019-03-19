@@ -60,7 +60,7 @@ SESSION_CONFIGS = [
         'name': 'pgg_gender',
         'display_name': "Public Good Game - Gender",
         'num_demo_participants': 3,
-        'app_sequence': ['questionnaire','pggfg'],
+        'app_sequence': ['questionnaire', 'pggfg'],
         'hetero_endowment': False,
         'gender_shown': True,
         'punishment': False
@@ -74,6 +74,13 @@ SESSION_CONFIGS = [
         'gender_shown': False,
         'punishment': True
     },
+    {
+        'name': 'trust',
+        'display_name': "Trust",
+        'num_demo_participants': 2,
+        'app_sequence': ['questionnaire', 'trust'],
+        'mono': True
+    },
 ]
 
 # ISO-639 code
@@ -84,7 +91,7 @@ LANGUAGE_CODE = 'en'
 REAL_WORLD_CURRENCY_CODE = 'USD'
 USE_POINTS = True
 
-ROOMS = []
+ROOMS = [{'name':'goettingen', 'display_name': 'Room for Goettingen Workshop'}]
 
 ADMIN_USERNAME = 'admin'
 # for security, best to set admin password in an environment variable

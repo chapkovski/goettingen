@@ -5,7 +5,7 @@
     Results  (Period {{ subsession.round_number }} of {{ Constants.num_rounds }})
 {% endblock %}
 
-{% block content %}
+{% block inner_content %}
     {% include 'pggfg/includes/results_table.html' %}
     {% include 'pggfg/includes/endowment_gender_block.html' with results=True %}
     {% include 'pggfg/includes/results_chart.html' %}
