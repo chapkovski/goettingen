@@ -25,13 +25,54 @@ SESSION_CONFIGS = [
         'app_sequence': ['first_app'],
     },
     {
+        'name': 'bmi_mono',
+        'display_name': "BMI - single",
+        'num_demo_participants': 2,
+        'app_sequence': ['bmi'],
+        'duo': False
+    },
+    {
+        'name': 'bmi_duo',
+        'display_name': "BMI - duo",
+        'num_demo_participants': 2,
+        'app_sequence': ['bmi'],
+        'duo': True
+    },
+    {
         'name': 'pgg_baseline',
         'display_name': "Public Good Game - baseline",
         'num_demo_participants': 3,
-        'app_sequence': ['pgg'],
+        'app_sequence': ['pggfg'],
         'hetero_endowment': False,
         'gender_shown': False,
         'punishment': False
+    },
+    {
+        'name': 'pgg_hetero',
+        'display_name': "Public Good Game - Hetero endowment",
+        'num_demo_participants': 3,
+        'app_sequence': ['pggfg'],
+        'hetero_endowment': True,
+        'gender_shown': False,
+        'punishment': False
+    },
+    {
+        'name': 'pgg_gender',
+        'display_name': "Public Good Game - Gender",
+        'num_demo_participants': 3,
+        'app_sequence': ['pggfg'],
+        'hetero_endowment': False,
+        'gender_shown': True,
+        'punishment': False
+    },
+    {
+        'name': 'pgg_punishment',
+        'display_name': "Public Good Game - Punishment",
+        'num_demo_participants': 3,
+        'app_sequence': ['pggfg'],
+        'hetero_endowment': False,
+        'gender_shown': False,
+        'punishment': True
     },
 ]
 

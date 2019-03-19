@@ -1,0 +1,23 @@
+{% extends "global/Page.html" %}
+{% load otree static %}
+
+{% block title %}
+    Results
+{% endblock %}
+
+{% block content %}
+    {% if not session.config.individual %}
+        {% with other=player.get_other %}
+            <div class="alert {{ other.get_bmi_info.alert }}">
+                Your partner's BMI: {{ other.get_bmi }}. Classification: {{ other.get_bmi_info.name }}
+            </div>
+        {% endwith %}
+    {% endif %}
+
+    <div class="alert {{ player.get_bmi_info.alert }}">
+      Your BMI: {{ player.get_bmi }}. Classification: {{ player.get_bmi_info.name }}
+    </div>
+    {% next_button %}
+{% endblock %}
+
+
