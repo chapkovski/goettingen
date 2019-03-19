@@ -91,6 +91,8 @@ SESSION_CONFIGS = [
         'mono': True
     },
 ]
+for i in SESSION_CONFIGS:
+    i.setdefault('use_browser_bots', False)
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
