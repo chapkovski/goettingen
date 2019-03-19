@@ -64,21 +64,19 @@
         };
         $(".sliders").slider(
             {
-                value: {{Constants.endowment}}/2,
+                value: default_value,
                 min: 0,
-                max: {{Constants.endowment}},
+                max: endowment,
                 step: 1,
                 create: function () {
                     var handle = $(this).children("#custom-handle");
                     handle.text($(this).slider("value"));
                     curname = $(this).attr('id');
-                    console.log('testing cur value  ' + $(this).slider("value"));
                     changetab(true, curname, default_value);
                 },
                 slide: function (event, ui) {
                     var handle = $(this).children("#custom-handle");
                     curname = $(this).attr('id');
-
                     handle.text(ui.value);
                     changetab(false, curname, ui.value);
                 }
