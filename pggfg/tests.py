@@ -8,11 +8,15 @@ import random
 
 
 class PlayerBot(Bot):
+    cases = ['timeout','notimeout', ]
     def play_round(self):
         if self.round_number == 1:
             yield Intro
         contribution = random.randint(0, self.player.endowment)
-        yield Contribute, {'contribution': contribution}
+        if self.case == 'timeout':
+            yield Submission(Contribute, {'contribution': contribution}, timeout_happened=True)
+        else:
+            yield Submission(Contribute, {'contribution': contribution}, timeout_happened=False)
 
         if self.subsession.punishment:
             pun_fields = ['pun{}'.format(p.id_in_group) for p in self.player.get_others_in_group()]

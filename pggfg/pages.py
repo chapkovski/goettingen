@@ -2,6 +2,7 @@ from . import models
 from ._builtin import Page, WaitPage
 from otree.api import Currency as c, currency_range
 from .models import Constants, Player
+import random
 
 
 class StartWP(WaitPage):
@@ -16,15 +17,21 @@ class Intro(Page):
 
 
 class Contribute(Page):
-    timeout_seconds = 60
-
     form_model = 'player'
     form_fields = ['contribution']
+    timeout_submission = {'contribution': 0}
+
+    def get_timeout_seconds(self):
+        cur_timer = self.subsession.timeout_contribution_seconds
+        if cur_timer and cur_timer > 0:
+            return cur_timer
 
     def vars_for_template(self):
         label = f'How much will you contribute to the project (from 0 to {self.player.endowment})?'
-        x = self.session.config.get('timeout_contribution', 0)
-        timer_text = f'Time left to complete this page (if you do not decide, your contribution will be {c(x)}):'
+        x = self.subsession.timeout_contribution_points
+        contribution_string = 'chosen randomly' if self.subsession.random_contribution else x
+        timer_text = f"""If you do not take decision on time, your contribution will be {contribution_string}. 
+        Time left to complete this page:"""
         return {'label': label,
                 'timer_text': timer_text
                 }
@@ -34,7 +41,11 @@ class Contribute(Page):
 
     def before_next_page(self):
         if self.timeout_happened:
-            self.player.contribution = self.session.config.get('timeout_contribution', 0)
+            if self.subsession.random_contribution:
+                c = random.randint(0, self.player.endowment)
+            else:
+                c = self.subsession.timeout_contribution_points or 0
+            self.player.contribution = c
 
 
 class AfterContribWP(WaitPage):

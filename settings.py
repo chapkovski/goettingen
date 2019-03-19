@@ -43,10 +43,6 @@ SESSION_CONFIGS = [
         'display_name': "Public Good Game - baseline",
         'num_demo_participants': 3,
         'app_sequence': ['pggfg'],
-        'hetero_endowment': False,
-        'gender_shown': False,
-        'punishment': False,
-        'timeout_contribution': 0
     },
     {
         'name': 'pgg_hetero',
@@ -74,6 +70,18 @@ SESSION_CONFIGS = [
         'hetero_endowment': False,
         'gender_shown': False,
         'punishment': True
+    },
+    {
+        'name': 'pgg_timeout',
+        'display_name': "Public Good Game with timeouts",
+        'num_demo_participants': 3,
+        'app_sequence': ['pggfg'],
+        'hetero_endowment': False,
+        'gender_shown': False,
+        'punishment': False,
+        'timeout_contribution_points': 0,
+        'timeout_contribution_seconds': 20,
+        'random_contribution': False,
     },
     {
         'name': 'trust',
